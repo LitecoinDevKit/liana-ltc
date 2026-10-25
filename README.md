@@ -1,78 +1,98 @@
 <div align="center">
-  <a href="https://wizardsardine.com/liana" target="_blank">
+  <a href="https://github.com/LitecoinDevKit/liana-ltc" target="_blank">
     <img src="liana-ui/static/logos/liana-app-icon.svg" width="140px" />
   </a>
 
-# Liana
+# Liana Litecoin
 
-*The missing safety net for your bitcoins*.
+*The missing safety net for your litecoins.*
+
+**Early scaffold / planning — not mainnet-ready. Litecoin and MWEB support are not implemented yet.**
 
 </div>
 
-
 ## About
 
-Liana is a simple Bitcoin wallet. Like other Bitcoin wallets you have one key which can spend the
-funds in the wallet immediately. Unlike other wallets, Liana lets you in addition specify one key
-which can only spend the coins after the wallet has been inactive for some time.
+**Liana Litecoin** (short: **Liana-LTC**) is a desktop Litecoin wallet forked from
+[Liana](https://github.com/wizardsardine/liana) by [Wizardsardine](https://wizardsardine.com/liana).
+It targets **inheritance**, **loss protection**, and **safer backups** on Litecoin.
 
-We refer to these as the primary spending path (always accessible) and the recovery path (only
-available after some time of inactivity). You may have more than one key in either the primary or
-the recovery path (multisig). You may have more than one recovery path.
+Like upstream Liana, you have a **primary spending path** (always accessible) and one or more
+**recovery paths** (available after a period of inactivity). Either path may be multisig.
 
-Here is an example of a Liana wallet configuration:
-- Wallet Manager's key (can always spend)
-- Any 2 keys from the owner's spouse and two kids (after 1 year)
-- A third party, in case [all else failed](https://wizardsardine.com/liana/plans#section-safety-net)
-  (after 1 year and 3 months)
+### Transparent vault (planned)
 
-The lockup period is enforced onchain by the Bitcoin network. This is achieved by leveraging
-timelock capabilities of Bitcoin smart contracts (Script).
+On the transparent Litecoin chain, recovery will use the same model as upstream Liana:
+timelocks enforced on-chain by Script / miniscript (`older(N)` relative locktime). Primary keys can
+always spend; recovery keys unlock after inactivity.
 
-Liana can be used for **trustless inheritance**, **loss protection** or **safer backups**. Visit
-[our website](https://wizardsardine.com/liana) for more information.
+### Private Litecoin / MWEB (planned)
 
+[MWEB](https://github.com/litecoin-project/lips/blob/master/lip-0002.mediawiki) payments on Litecoin
+are **non-interactive** (stealth addresses). MWEB outputs do not carry Script multipath policies, so
+recovery will **not** use Script CSV on Private Litecoin.
+
+Planned MWEB recovery delivers the **same user-facing features** (primary always spends; heirs
+recover after a delay; staged paths / multisig) via a **wallet protocol**: after each receive, the
+wallet prepares height-locked pre-signed recovery transactions (`kernel.lock_height`). Same
+*experience*, different *enforcement* than the transparent vault.
+
+Do not read this README as claiming working MWEB inheritance today — see [`docs/PLAN.md`](docs/PLAN.md).
+
+### Ecosystem
+
+- Built on **[LitecoinDevKit](https://github.com/LitecoinDevKit)** (LDK) for Litecoin / MWEB library work
+- **Nexus** (Litecoin Foundation mobile wallet) is an address/tx **interop peer** only — this project
+  does **not** embed Nexus, `lndltc`, or `mwebd`
+- Adoption / pin ladder for LDK: [`LitecoinDevKit/bdk` docs/ADOPTION.md](https://github.com/LitecoinDevKit/bdk/blob/litecoin/docs/ADOPTION.md)
+
+## Status
+
+| Area | Status |
+|------|--------|
+| Repo fork + planning docs | Done (this tree) |
+| Litecoin transparent port | Not started |
+| MWEB sync / spend | Not started |
+| MWEB recovery packages | Not started |
+| Releases / mainnet | Not ready |
+
+Living roadmap: **[`docs/PLAN.md`](docs/PLAN.md)**. Upstream merge notes: [`UPSTREAM.md`](UPSTREAM.md).
 
 ## Usage
 
-Liana is available on Windows, Mac and Linux. To install and start using it see
-[`doc/USAGE.md`](doc/USAGE.md). A more accessible version of Liana is also available as a web
-application [here](https://lianalite.com/).
+Upstream Liana install / try docs still describe **Bitcoin** (`doc/USAGE.md`, `doc/TRY.md`). They
+are retained for reference until the Litecoin port lands. Do not use this fork with real funds yet.
 
-If you just want to quickly try out Liana on Bitcoin Signet, see [`doc/TRY.md`](doc/TRY.md).
+## Hacking on Liana Litecoin
 
+This repository is hosted at [LitecoinDevKit/liana-ltc](https://github.com/LitecoinDevKit/liana-ltc).
+Contributions welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md) (upstream guidelines apply until we
+add Litecoin-specific notes).
 
-## Hacking on Liana
+Layout matches upstream:
 
-Liana is an open source project. It is [hosted at Github](https://github.com/wizardsardine/liana).
-Contributions are very welcome. See [here](CONTRIBUTING.md) for guidelines. Most regular
-contributors hang out on [our Discord](https://discord.gg/9rAqZHwkv6). Join us there if you have any
-question about contributing.
+#### Daemon (`liana`)
 
-Liana is separated in two main components: the daemon and the Graphical User Interface.
+Core wallet logic: Rust library + UNIX daemon with JSON-RPC over a Unix domain socket.
+See the [`liana`](liana) folder.
 
-#### Liana daemon
+#### GUI (`liana-gui`)
 
-The daemon contains the core logic of the wallet. It is both a library (a Rust crate) that exposes a
-command interface and a standalone UNIX daemon that exposes a JSONRPC API through a Unix Domain
-Socket.
+Installer + graphical UI (via [`iced`](https://github.com/iced-rs/iced/)).
+See the [`liana-gui`](liana-gui) folder.
 
-The code for the daemon can be found in the [`liana`](liana) folder.
-
-#### Liana GUI
-
-The GUI contains both an installer that guides a user through setting up a Liana wallet, as well as
-a graphical interface to the daemon using the [`iced`](https://github.com/iced-rs/iced/) library.
-
-The code for the GUI can be found in the [`liana-gui`](liana-gui) folder.
-
+Daemon and GUI sources are **unchanged from upstream** in this scaffold pass. A `litecoin` working
+branch is planned for Phase 1 (see [`docs/PLAN.md`](docs/PLAN.md)).
 
 ## Security
 
-See [`SECURITY.md`](SECURITY.md) for details about reporting a security vulnerability or any bug
-that could potentially impact the security of users' funds.
+See [`SECURITY.md`](SECURITY.md) for vulnerability reporting. Treat this fork as experimental until
+a signed release says otherwise.
 
-
-## License
+## License and attribution
 
 Released under the BSD 3-Clause Licence. See the [LICENCE](LICENCE) file.
+
+This project is a fork of [wizardsardine/liana](https://github.com/wizardsardine/liana).
+It is **not affiliated with, endorsed by, or sponsored by** Wizardsardine or the Liana developers.
+“Liana” is used to acknowledge upstream; product branding may evolve (see open questions in the plan).
