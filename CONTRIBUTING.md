@@ -10,6 +10,9 @@ If you use AI tools while contributing, read and follow the
 [AI policy](doc/AI_POLICY.md). Contributors are responsible for understanding and
 explaining their own work in their own words.
 
+New to this fork? See [docs/ONBOARDING.md](docs/ONBOARDING.md) for a short getting-started
+checklist (roadmap context, build, domain background, AI workflow).
+
 
 ## Communication
 

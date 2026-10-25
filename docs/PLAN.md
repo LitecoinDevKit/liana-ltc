@@ -126,6 +126,7 @@ introduce LDK primarily for MWEB in Phase 3, unless transparent port economics f
 
 ## References
 
+- Onboarding: [`ONBOARDING.md`](ONBOARDING.md)
 - Upstream: [wizardsardine/liana](https://github.com/wizardsardine/liana)
 - LDK: [LitecoinDevKit/bdk](https://github.com/LitecoinDevKit/bdk) (esp. `ADOPTION.md`, `MWEB_ARCHITECTURE.md`)
 - Fork hygiene: [`UPSTREAM.md`](../UPSTREAM.md)

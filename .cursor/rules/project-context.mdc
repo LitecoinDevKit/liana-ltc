@@ -1,0 +1,40 @@
+---
+description: Liana Litecoin project status, architecture, crates, and fork hygiene
+alwaysApply: true
+---
+
+# Project context
+
+LitecoinDevKit fork of wizardsardine/liana. Entry point: `AGENTS.md`. Living roadmap: `docs/PLAN.md`.
+
+## Status
+
+- Phase 0 (scaffold + docs): done
+- Phase 1 (transparent Litecoin port): not started — no LTC code yet; daemon/GUI are still Bitcoin upstream
+- Not mainnet-ready; do not invent Litecoin or MWEB behavior in code or copy
+
+## Architecture
+
+Two ledgers under one UI. Transparent policy stays Liana’s descriptor engine; MWEB state stays parallel (LDK store / coin DB).
+
+- Transparent vault: multipath miniscript, on-chain `older(N)`
+- MWEB: same user-facing recovery *features* via height-locked pre-signed txs — not Script CSV on HogAddr
+- Never index HogAddr as transparent UTXOs
+- Depend on LitecoinDevKit; never embed Nexus / `lndltc` / in-process `mwebd`
+
+## Crates
+
+| Crate | Role |
+|-------|------|
+| `liana` | Policy, descriptors, spend/recovery, signer |
+| `lianad` | Daemon: backends, DB, JSON-RPC over UDS |
+| `liana-gui` / `liana-ui` | Iced UI / design system |
+| `liana-connect` / `liana-business` | Out of v1 LTC scope |
+
+## Fork hygiene
+
+Remotes: `origin` = LitecoinDevKit/liana-ltc; `upstream` = wizardsardine/liana. Details: `UPSTREAM.md`.
+
+On merge conflicts: keep this fork’s README / `docs/PLAN.md` / `UPSTREAM.md`; take upstream for untouched daemon/GUI until Phase 1+ ports diverge.
+
+Prefer regular merges of `upstream/master`. Read `docs/PLAN.md` before large changes; update it when phases complete. Current focus when coding: Phase 1 transparent port on a `litecoin` branch — not MWEB recovery.

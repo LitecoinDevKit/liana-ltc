@@ -1,0 +1,24 @@
+---
+description: AI contribution policy — human in the loop, no agent-driven PRs
+alwaysApply: true
+---
+
+# AI policy
+
+Full text: `doc/AI_POLICY.md` (adapted from Bitcoin Core). High bar for all contributions.
+
+## Required behavior
+
+- Human author in the loop: choose the work, understand the change, own the contribution.
+- Do not open or drive pull requests autonomously.
+- Do not set an agent as git author or co-author.
+- Do not draft GitHub issue/PR comments or review replies meant to be posted as-is; humans write those in their own words.
+- Only propose changes the human could have written and can explain (language, surrounding code, effects).
+
+## Disclosure
+
+If AI interaction context is useful in a comment, it must be disclosed and paired with human commentary on relevance and implications.
+
+## Agent practice
+
+Prefer small, reviewable diffs. Help explore and draft; leave PR bodies, review answers, and commit authorship to the human. Violations can get PRs closed without notice.

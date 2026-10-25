@@ -1,0 +1,29 @@
+---
+description: Iced / liana-ui conventions for GUI and business installer
+globs: liana-gui/**,liana-ui/**,liana-business/**
+alwaysApply: false
+---
+
+# UI (Iced / liana-ui)
+
+Full guide: `UI_GUIDELINES.md`. `liana-ui` is the design system — extend it; do not hand-roll widgets, colors, or layout primitives in consumers.
+
+## Layout and spacing
+
+- Fixed children: `row![a, b, opt_c]` / `column![...]` (`Option` args ok; `None` dropped). Do not `Row::new()` / `.push_maybe` for a fixed set.
+- Dynamic only: loop / fold `.push`, or `RowExt`/`ColumnExt::push_maybe`.
+- Spacing: `VSpacing` / `HSpacing`; `SpaceExt` (`Space::with_width`, `fill_width`, etc.). No raw numeric stack gaps unless named and geometry-specific.
+- Lengths: prefer numeric `Into<Length>` and shared width enums; avoid spelling `Length::Fixed` / `Length::Fill` in new view code.
+
+## Typography and style
+
+- Text roles: `text::new::*` (`d2`–`d4`, `h1`–`h3`, `b1`–`b5`, captions). Do not size text by hand.
+- Style via theme closures only (`theme::text::secondary`, `theme::button::*`, …). Never hardcoded hex/`Color`.
+
+## Components
+
+- Buttons/pills: semantic helpers only (`btn_save`, `btn_cancel`, status pills, …). Add new helpers in `liana-ui` first.
+- Cards: existing `card::*` + `CardPadding` enum — no raw padding numbers.
+- Extracted components: `fn x<'a, M: Clone + 'static>(..) -> Element<'a, M>`.
+
+Installer/app scaffolds stay in their existing `layout()` wrappers; do not invent parallel page chrome.
