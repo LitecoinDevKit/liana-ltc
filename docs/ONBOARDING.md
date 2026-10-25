@@ -56,12 +56,14 @@ Spend time on these before Phase 1 PRs — an LLM cannot substitute for this:
 
 AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md):
 
-- You must understand the language, surrounding code, and effects of your change
+- You must be able to explain what changed, why, and how you verified it
 - Human owns issues, PR bodies, and review replies — do not paste model output into GitHub
 - No autonomous agent-driven PRs; no agents as git author/co-author
 - Cursor rules under [`.cursor/rules/`](../.cursor/rules/) reinforce this in-session
 
-Practical loop: agent explores/drafts → you rewrite the PR description → you can defend the change on review → then open the PR.
+**Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you write the PR text in your own words → you can defend the change on review.
+
+Canonical policy text in `doc/AI_POLICY.md` still applies for contributions to this repo (and upstream expectations if you contribute there).
 
 ## First useful work (Phase 1)
 

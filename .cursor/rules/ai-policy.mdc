@@ -9,11 +9,15 @@ Full text: `doc/AI_POLICY.md` (adapted from Bitcoin Core). High bar for all cont
 
 ## Required behavior
 
-- Human author in the loop: choose the work, understand the change, own the contribution.
+- Human author in the loop: choose the work, own the contribution, and be able to explain effects.
 - Do not open or drive pull requests autonomously.
 - Do not set an agent as git author or co-author.
 - Do not draft GitHub issue/PR comments or review replies meant to be posted as-is; humans write those in their own words.
-- Only propose changes the human could have written and can explain (language, surrounding code, effects).
+- Only propose changes the human can defend (what changed, why, how it was verified).
+
+## How humans may own the change
+
+Understanding need not mean line-by-line reading of every file. A testing-led loop is fine: design cases, run builds/tests, fail/fix with the agent, ship only what you verified. For funds-touching code, prefer reading the shipped diff plus tests over trusting green CI alone.
 
 ## Disclosure
 
@@ -21,4 +25,4 @@ If AI interaction context is useful in a comment, it must be disclosed and paire
 
 ## Agent practice
 
-Prefer small, reviewable diffs. Help explore and draft; leave PR bodies, review answers, and commit authorship to the human. Violations can get PRs closed without notice.
+Prefer small, reviewable diffs and help the human verify (cargo test, blackbox paths, checklists). Leave PR bodies, review answers, and commit authorship to the human. Violations can get PRs closed without notice.
