@@ -11,19 +11,27 @@ this page is for people (including AI-assisted contributors).
 2. [`docs/PLAN.md`](PLAN.md) — goals, phases, transparent vs MWEB
 3. [`UPSTREAM.md`](../UPSTREAM.md) — remotes, fork SHA, merge rule
 4. [`doc/AI_POLICY.md`](../doc/AI_POLICY.md) — required if you use LLMs
-5. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — commits, review, MSRV
+5. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — commits, MSRV, maintainer vs external workflow
 6. [`doc/USAGE.md`](../doc/USAGE.md) / [`doc/RECOVER.md`](../doc/RECOVER.md) / [`doc/API.md`](../doc/API.md) — how Liana works as a product
 7. [`UI_GUIDELINES.md`](../UI_GUIDELINES.md) — only if you touch Iced UI
+
+## Branches (this fork)
+
+- `master` — track upstream Liana; Phase 0 docs may land here.
+- `litecoin` — create when Phase 1 starts; all LTC product work goes here (same idea as
+  LitecoinDevKit/bdk). Solo maintainers may push focused commits; external contributors open PRs.
+  Details: [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
 ## Two ledgers (must know)
 
 | Account | Mechanism | Recovery enforcement |
 |---------|-----------|----------------------|
 | Transparent vault | Liana multipath miniscript | On-chain Script `older(N)` |
-| Private (MWEB) | LDK MWEB + LIP-0006 | Height-locked pre-signed txs (`kernel.lock_height`) |
+| Private (MWEB) | LDK MWEB + LIP-0006 | Height-locked pre-signed txs + heir backup |
 
-Same *features* on both; different *enforcement*. Never index HogAddr as transparent UTXOs.
-Never embed Nexus / `lndltc` / in-process `mwebd`. Details: [`PLAN.md`](PLAN.md).
+Same *features* on both; different *enforcement*. Three stores never merge: transparent UTXOs,
+MWEB coins, recovery package backup. Never index HogAddr as transparent UTXOs. Never embed Nexus /
+`lndltc` / in-process `mwebd`. Details: [`PLAN.md`](PLAN.md) Architecture.
 
 ## Remotes
 
@@ -45,7 +53,7 @@ upstream  https://github.com/wizardsardine/liana.git
 
 ## Domain homework
 
-Spend time on these before Phase 1 PRs — an LLM cannot substitute for this:
+Spend time on these before Phase 1 work — an LLM cannot substitute for this:
 
 - Miniscript and relative timelocks (`older`) — why primary vs recovery works on transparent LTC
 - Why MWEB stealth receives break Script multipath (see LIP-0002 and `PLAN.md`)
@@ -61,7 +69,7 @@ AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md):
 - No autonomous agent-driven PRs; no agents as git author/co-author
 - Cursor rules under [`.cursor/rules/`](../.cursor/rules/) reinforce this in-session
 
-**Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you write the PR text in your own words → you can defend the change on review.
+**Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you write any PR/issue text in your own words → you can defend the change if asked.
 
 Canonical policy text in `doc/AI_POLICY.md` still applies for contributions to this repo (and upstream expectations if you contribute there).
 
@@ -82,7 +90,7 @@ You can, without relying on a model:
 
 1. Draw transparent vs MWEB recovery enforcement
 2. Point to where descriptors and recovery txs live
-3. State the current phase and a mergeable next PR
+3. State the current phase and a sensible next change (on `litecoin` once Phase 1 starts)
 4. Restate the AI policy in your own words
 
 Then contribute under [`CONTRIBUTING.md`](../CONTRIBUTING.md).

@@ -67,8 +67,8 @@ are retained for reference until the Litecoin port lands. Do not use this fork w
 
 This repository is hosted at [LitecoinDevKit/liana-ltc](https://github.com/LitecoinDevKit/liana-ltc).
 New contributors: start with **[`docs/ONBOARDING.md`](docs/ONBOARDING.md)**. Contributions welcome —
-see [`CONTRIBUTING.md`](CONTRIBUTING.md) (upstream guidelines apply until we add Litecoin-specific
-notes). Agent / LLM sessions: [`AGENTS.md`](AGENTS.md).
+see [`CONTRIBUTING.md`](CONTRIBUTING.md) (includes LitecoinDevKit maintainer vs external PR notes).
+Agent / LLM sessions: [`AGENTS.md`](AGENTS.md).
 
 Layout matches upstream:
 

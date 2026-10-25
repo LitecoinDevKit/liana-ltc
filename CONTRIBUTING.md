@@ -14,6 +14,27 @@ New to this fork? See [docs/ONBOARDING.md](docs/ONBOARDING.md) for a short getti
 checklist (roadmap context, build, domain background, AI workflow).
 
 
+# LitecoinDevKit maintainer workflow
+
+This fork is often a **solo** line of work (same pattern as LitecoinDevKit/bdk’s `litecoin`
+branch). Upstream’s PR-for-everything rule below still applies to **external** contributors and to
+large or funds-adjacent changes. Maintainers need not open a self-PR for every docs or small fix.
+
+| Branch | Role |
+|--------|------|
+| `master` | Stay close to `upstream/master` (wizardsardine/liana); prefer regular merges — see [UPSTREAM.md](UPSTREAM.md) |
+| `litecoin` | Litecoin product work (Phase 1+). Create when the transparent port starts ([docs/PLAN.md](docs/PLAN.md)) |
+
+**Day to day (maintainer):** push focused, atomic, buildable commits to `litecoin` (or `master`
+during Phase 0 scaffold). Prefer commit messages that explain *why*.
+
+**Use a pull request when:** someone else may review; you want CI/Actions as a gate; the change is
+large or touches funds/descriptor/spend paths; or you want a durable review artifact.
+
+**Still required either way:** hygienic commits, rustfmt, tests for new features, and the
+[AI policy](doc/AI_POLICY.md) (human owns PR/issue text; no autonomous agent-driven PRs).
+
+
 ## Communication
 
 Most of the communication is done on GitHub or on [our Discord](https://discord.gg/9rAqZHwkv6).
@@ -29,11 +50,11 @@ as well as checking out the [good first issues](https://github.com/wizardsardine
 on the issue tracker.
 
 
-# Workflow
+# Workflow (external contributors)
 
-The codebase is maintained using the "contributor workflow" where everyone
-without exception contributes patch proposals using "pull requests" (PRs). This
-facilitates social contribution, easy testing and peer review.
+External contributors use the "contributor workflow": patch proposals via **pull requests** (PRs).
+This facilitates social contribution, easy testing and peer review. Maintainers: see
+**LitecoinDevKit maintainer workflow** above.
 
 In general, [commits should be atomic](https://en.wikipedia.org/wiki/Atomic_commit#Atomic_commit_convention)
 and diffs should be easy to read. For this reason, do not mix any formatting

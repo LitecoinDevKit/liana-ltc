@@ -15,10 +15,10 @@ LitecoinDevKit fork of wizardsardine/liana. Entry point: `AGENTS.md`. Living roa
 
 ## Architecture
 
-Two ledgers under one UI. Transparent policy stays Liana’s descriptor engine; MWEB state stays parallel (LDK store / coin DB).
+Two ledgers under one UI. Transparent stays Liana-shaped; MWEB is additive in `lianad`. Details: `docs/PLAN.md`.
 
-- Transparent vault: multipath miniscript, on-chain `older(N)`
-- MWEB: same user-facing recovery *features* via height-locked pre-signed txs — not Script CSV on HogAddr
+- Three stores, never merge: transparent UTXOs | MWEB coins | recovery package backup
+- Vault: Script `older(N)`. Private: `lock_height` packages + heir backup (feature parity, not mechanism parity)
 - Never index HogAddr as transparent UTXOs
 - Depend on LitecoinDevKit; never embed Nexus / `lndltc` / in-process `mwebd`
 
@@ -37,4 +37,4 @@ Remotes: `origin` = LitecoinDevKit/liana-ltc; `upstream` = wizardsardine/liana. 
 
 On merge conflicts: keep this fork’s README / `docs/PLAN.md` / `UPSTREAM.md`; take upstream for untouched daemon/GUI until Phase 1+ ports diverge.
 
-Prefer regular merges of `upstream/master`. Read `docs/PLAN.md` before large changes; update it when phases complete. Current focus when coding: Phase 1 transparent port on a `litecoin` branch — not MWEB recovery.
+Prefer regular merges of `upstream/master`. `master` tracks upstream; LTC product work goes on `litecoin` once Phase 1 starts (solo may push focused commits; PRs for external/large/funds work — `CONTRIBUTING.md`). Read `docs/PLAN.md` before large changes; update it when phases complete. Current focus when coding: Phase 1 transparent port — not MWEB recovery.

@@ -24,37 +24,86 @@ Update this file as phases complete. Scaffold only as of Phase 0 — no Litecoin
 
 ## Architecture (target)
 
-Two ledgers under one UI. Transparent policy stays Liana’s descriptor engine; MWEB state stays
-parallel (LDK `MwebStore` / coin DB — never fold HogAddr into the transparent UTXO index).
+Two ledgers under one UI. Transparent stays Liana-shaped (thin fork); MWEB is **additive** modules in
+the daemon — not a rewrite of the descriptor engine. Feature parity for recovery UX; **not**
+mechanism parity (see Non-goals).
+
+### Components
+
+| Layer | Role |
+|-------|------|
+| `liana` | Transparent policy / multipath descriptors / spend & Script recovery planning |
+| `lianad` transparent runtime | Coin index, Electrum-LTC and/or litecoind, JSON-RPC — Liana shape |
+| `lianad` MWEB runtime | LDK `MwebStore` / coin DB, LIP-0006 sync, peg-in/out, MWEB spend/broadcast |
+| Recovery packages | Build / refresh / encrypt / export pre-signed MWEB recovery txs (Phase 4) |
+| `liana-gui` | Installer + wallet UI; vault vs Private accounts; honest recovery copy |
+
+### Data plane (three stores — never merge)
+
+1. **Transparent UTXOs** — descriptor wallet coins (Script / CSV clock via chain tip).
+2. **MWEB coins** — parallel LDK store; never index HogAddr as transparent UTXOs.
+3. **Recovery package backup** — heir-held artifact (encrypted export); must be refreshed after
+   self-spends. Chain does not store this for the heir.
+
+### Account model
+
+One desktop wallet, **two accounts** under one UI (combined balance is a view, not a merged UTXO set):
+
+- **Vault** — transparent Liana multipath descriptor.
+- **Private** — MWEB keys (Nexus-compatible scheme) + LDK sync.
+
+Peg-in / peg-out are bridge flows between accounts (Phase 3 spend/sync; Phase 5 one-click peg-out to
+vault). Connect / SaaS is out of v1.
+
+### Trust / enforcement
+
+| Account | Mechanism | Recovery enforcement | Clock |
+|---------|-----------|----------------------|-------|
+| **Vault** | Liana multipath miniscript | Network Script `older(N)` | Relative (CSV / coin age) |
+| **Private** | LDK MWEB + LIP-0006 | Pre-signed txs with kernel `lock_height` + heir backup | Absolute (block height) |
+
+- Vault: chain refuses early recovery spends; heir needs keys after delay.
+- Private: chain enforces `lock_height` on the prepared kernel; heir also needs a **correct, current
+  backup**. Wrong or stale packages are a wallet-protocol failure, not a Script failure.
+
+Marketing-safe summary: same *features* on both accounts; transparent = network Script; MWEB = wallet
+height-lock packages.
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph ui [liana-gui]
     Installer
     WalletUI
   end
-  subgraph daemon [liana daemon]
-    Policy[LianaPolicy transparent]
-    MwebRec[MWEB recovery packages]
+  subgraph lib [liana]
+    Policy[LianaPolicy descriptors]
+  end
+  subgraph daemon [lianad]
+    TRun[Transparent runtime]
+    MRun[MWEB runtime]
+    RecPkg[Recovery package builder]
+    TRun --> Policy
+    RecPkg --> MRun
+  end
+  subgraph stores [Local stores]
+    TUtxo[Transparent UTXOs]
+    MCoins[MWEB coins]
+    Backup[Recovery backup export]
   end
   subgraph chain [Backends]
     ElectrumLTC
     Litecoind
     LIP[LIP-0006 MWEB sync]
   end
+  Installer --> daemon
   WalletUI --> daemon
-  Policy --> ElectrumLTC
-  Policy --> Litecoind
-  MwebRec --> LIP
+  TRun --> TUtxo
+  TRun --> ElectrumLTC
+  TRun --> Litecoind
+  MRun --> MCoins
+  MRun --> LIP
+  RecPkg --> Backup
 ```
-
-| Account | Mechanism | Recovery enforcement |
-|---------|-----------|----------------------|
-| **Vault (transparent)** | Liana multipath miniscript descriptors | On-chain Script relative timelock (`older(N)`) |
-| **Private (MWEB)** | LDK MWEB + LIP-0006 scan | Post-scan pre-signed txs with kernel `lock_height`; backup for heirs |
-
-Marketing-safe summary: same *features* on both accounts; transparent = network Script; MWEB = wallet
-height-lock packages.
 
 ## Phased todos
 

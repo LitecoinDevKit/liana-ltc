@@ -15,7 +15,7 @@ Human onboarding (reading order, domain homework, first tasks): [`docs/ONBOARDIN
 | [`docs/PLAN.md`](docs/PLAN.md) | Goals, phases, architecture, open questions |
 | [`UPSTREAM.md`](UPSTREAM.md) | Fork SHA, remotes, merge conflict rule |
 | [`doc/AI_POLICY.md`](doc/AI_POLICY.md) | Required AI contribution rules |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Commits, review, MSRV, rustfmt |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Commits, MSRV, maintainer vs external workflow |
 
 Cursor rules under [`.cursor/rules/`](.cursor/rules/) reinforce these constraints in-session.
 
@@ -24,8 +24,9 @@ Cursor rules under [`.cursor/rules/`](.cursor/rules/) reinforce these constraint
 - Do not claim mainnet readiness or working Litecoin/MWEB features.
 - Do not embed Nexus, `lndltc`, or in-process `mwebd` (GPL / wrong architecture).
 - Transparent vault = Script / miniscript `older(N)`. MWEB recovery = wallet protocol
-  (height-locked pre-signed txs), **not** Script CSV on MWEB outputs.
-- Never fold HogAddr / MWEB coins into the transparent UTXO index.
+  (height-locked pre-signed txs + heir backup), **not** Script CSV on MWEB outputs.
+- Three stores never merge: transparent UTXOs | MWEB coins | recovery package backup.
+  Never fold HogAddr into the transparent UTXO index.
 - Stay a thin, mergeable fork of upstream where practical.
 - Liana Connect / SaaS and renaming `liana*` crates are out of scope for v1.
 
@@ -40,6 +41,8 @@ vault dogfood (Phase 2).
 ## Workflow
 
 - Prefer small, atomic, buildable commits; do not mix formatting with logic.
+- Maintainer may push to `litecoin` (or `master` in Phase 0); external work and large/funds
+  changes use PRs — see `CONTRIBUTING.md`.
 - Human owns issues, PR bodies, and review replies (see AI policy).
 - Before claiming done: build/test with Cargo; use `tests/` blackbox where relevant.
 - Read `docs/PLAN.md` before large changes; update it when a phase completes.
