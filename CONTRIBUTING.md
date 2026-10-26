@@ -32,7 +32,8 @@ during Phase 0 scaffold). Prefer commit messages that explain *why*.
 large or touches funds/descriptor/spend paths; or you want a durable review artifact.
 
 **Still required either way:** hygienic commits, rustfmt, tests for new features, and the
-[AI policy](doc/AI_POLICY.md) (human owns PR/issue text; no autonomous agent-driven PRs).
+[AI policy](doc/AI_POLICY.md) (human-reviewed AI drafts for comments/PRs OK on this fork;
+no autonomous agent-driven PRs). Mistakes happen — own them and fix them.
 
 
 ## Communication

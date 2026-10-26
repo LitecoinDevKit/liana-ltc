@@ -5,15 +5,21 @@ alwaysApply: true
 
 # AI policy
 
-Full text: `doc/AI_POLICY.md` (adapted from Bitcoin Core). High bar for all contributions.
+Full text: `doc/AI_POLICY.md` (Bitcoin Core–adapted, with LitecoinDevKit fork notes).
 
 ## Required behavior
 
 - Human author in the loop: choose the work, own the contribution, and be able to explain effects.
 - Do not open or drive pull requests autonomously.
 - Do not set an agent as git author or co-author.
-- Do not draft GitHub issue/PR comments or review replies meant to be posted as-is; humans write those in their own words.
 - Only propose changes the human can defend (what changed, why, how it was verified).
+
+## Comments (this fork)
+
+AI-drafted GitHub comments, PR bodies, and review replies are **OK** when a human
+edits or approves before posting. Prefer clear and succinct. Do not dump unreviewed
+model walls of text. When contributing to upstream Liana / Bitcoin Core, follow
+*their* stricter human-only comment norms.
 
 ## How humans may own the change
 
@@ -21,8 +27,13 @@ Understanding need not mean line-by-line reading of every file. A testing-led lo
 
 ## Disclosure
 
-If AI interaction context is useful in a comment, it must be disclosed and paired with human commentary on relevance and implications.
+If raw AI transcript context is pasted into a comment, disclose it and add human
+commentary on relevance. Ordinary human-reviewed AI drafts need no special label.
+
+## Mistakes
+
+Mistakes happen. Own them, fix them, leave a clear trail. Do not hide errors or blame the model; help the human correct course quickly.
 
 ## Agent practice
 
-Prefer small, reviewable diffs and help the human verify (cargo test, blackbox paths, checklists). Leave PR bodies, review answers, and commit authorship to the human. Violations can get PRs closed without notice.
+Prefer small, reviewable diffs and help the human verify (cargo test, blackbox paths, checklists). Help draft short PR/issue/comment text for human edit. Leave commit authorship to the human. Violations (autonomous PRs, agent as co-author) can get PRs closed without notice.

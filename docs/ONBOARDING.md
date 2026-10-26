@@ -65,13 +65,17 @@ Spend time on these before Phase 1 work — an LLM cannot substitute for this:
 AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md):
 
 - You must be able to explain what changed, why, and how you verified it
-- Human owns issues, PR bodies, and review replies — do not paste model output into GitHub
+- **AI-drafted comments/PR text are OK on this fork** if you edit or approve before posting
+  (keep them clear and succinct — no unreviewed paste dumps)
 - No autonomous agent-driven PRs; no agents as git author/co-author
 - Cursor rules under [`.cursor/rules/`](../.cursor/rules/) reinforce this in-session
 
-**Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you write any PR/issue text in your own words → you can defend the change if asked.
+**Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts code and optional short comment/PR text → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you review/edit anything posted to GitHub → you can defend the change if asked.
 
-Canonical policy text in `doc/AI_POLICY.md` still applies for contributions to this repo (and upstream expectations if you contribute there).
+Upstream Liana / Bitcoin Core may still expect fully human-written comments — follow *their*
+rules when contributing there.
+
+**Mistakes happen. Own them, fix them.** Clear follow-up beats hiding an error or blaming the tool.
 
 ## First useful work (Phase 1)
 

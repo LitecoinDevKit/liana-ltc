@@ -43,7 +43,9 @@ vault dogfood (Phase 2).
 - Prefer small, atomic, buildable commits; do not mix formatting with logic.
 - Maintainer may push to `litecoin` (or `master` in Phase 0); external work and large/funds
   changes use PRs — see `CONTRIBUTING.md`.
-- Human owns issues, PR bodies, and review replies (see AI policy).
+- Human reviews/edits anything posted to GitHub; AI drafts for comments/PRs are OK on this
+  fork if kept short and approved (see AI policy). Upstream may be stricter.
+- Mistakes happen — own them, fix them, leave a clear trail; do not hide errors.
 - Before claiming done: build/test with Cargo; use `tests/` blackbox where relevant.
 - Read `docs/PLAN.md` before large changes; update it when a phase completes.
 - On upstream merges: keep this fork’s README / `docs/PLAN.md` / `UPSTREAM.md`;
