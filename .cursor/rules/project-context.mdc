@@ -21,6 +21,7 @@ Two ledgers under one UI. Transparent stays Liana-shaped; MWEB is additive in `l
 - Vault: Script `older(N)`. Private: `lock_height` packages + heir backup (feature parity, not mechanism parity)
 - Never index HogAddr as transparent UTXOs
 - Depend on LitecoinDevKit; never embed Nexus / `lndltc` / in-process `mwebd`
+- Thin port + external oracle (alias over rewrite; golden/reference tests): `doc/AI_NATIVE_FORKING.md`
 
 ## Crates
 

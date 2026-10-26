@@ -6,6 +6,13 @@ contributors.
 
 A high bar is held for all contributions to this project.
 
+**AI-native forking / porting playbook** (thin ports, external oracles, role split,
+mandatory verification records for funds-adjacent work):
+[`AI_NATIVE_FORKING.md`](AI_NATIVE_FORKING.md).
+
+**Hard rails (do not soften):** no autonomous agent-driven PRs; no agent as git author or
+co-author. These keep accountability from drifting.
+
 ## Comments and review replies (this fork)
 
 On **LitecoinDevKit/liana-ltc**, AI may help draft GitHub comments, issue text, PR
@@ -27,18 +34,19 @@ without an AI draft you have reviewed).
 
 You should only open a pull request if you (the human behind the LLM):
 
-- know the language the code is written in
-- could have written the code yourself (or can defend and verify the change —
-  testing-led ownership is acceptable on this fork; see `docs/ONBOARDING.md`)
-- understand the effect of the suggested changes
+- can **direct, verify, and explain** the change (Rust fluency is not required on this fork)
+- can defend what changed, why, and how it was verified — testing-led ownership and
+  thin-port + external-oracle verification are first-class; see
+  [`AI_NATIVE_FORKING.md`](AI_NATIVE_FORKING.md) and `docs/ONBOARDING.md`
+- understand the effect of the suggested changes (networks, keys, funds paths, disclaimers)
 
 You must also be able to explain the pull request changes. AI may help draft the
 PR body or replies; the human must review before posting and must be able to
 answer follow-ups without pasting unreviewed model output.
 
-This project requires a human author in the loop who understands the work produced by
+This project requires a human author in the loop who owns the work produced by
 AI. **Pull requests should not be opened or driven by autonomous agents**. A human
-author must choose the work, understand (or verify) the change, and be responsible for the
+author must choose the work, verify the change, and be responsible for the
 contribution. Do not include agents as authors or co-authors of your commits for
 these reasons. Pull requests that appear in violation of this can be closed without
 notice.
@@ -55,8 +63,9 @@ tooling; do not leave known breakage for someone else to discover.
 
 Questions or proposed changes to this policy can be discussed in a GitHub issue.
 
-This policy was adapted from [Bitcoin Core's AI policy], then adjusted for this
-solo/fork maintainer workflow (AI-assisted comments with human review; testing-led
-ownership; own-and-fix mistakes).
+This policy was adapted from [Bitcoin Core's AI policy], then adjusted for
+LitecoinDevKit’s AI-native forking workflow (see [`AI_NATIVE_FORKING.md`](AI_NATIVE_FORKING.md):
+human-reviewed AI drafts; testing-led ownership; thin ports + external oracles;
+own-and-fix mistakes).
 
 [bitcoin core's ai policy]: https://github.com/bitcoin/bitcoin/blob/f5d7cc66ecba075790e09b2933c782b218fa558f/doc/AI_POLICY.md

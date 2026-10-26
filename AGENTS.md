@@ -15,9 +15,12 @@ Human onboarding (reading order, domain homework, first tasks): [`docs/ONBOARDIN
 | [`docs/PLAN.md`](docs/PLAN.md) | Goals, phases, architecture, open questions |
 | [`UPSTREAM.md`](UPSTREAM.md) | Fork SHA, remotes, merge conflict rule |
 | [`doc/AI_POLICY.md`](doc/AI_POLICY.md) | Required AI contribution rules |
+| [`doc/AI_NATIVE_FORKING.md`](doc/AI_NATIVE_FORKING.md) | AI-native port playbook (thin ports, oracles, role split) |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Commits, MSRV, maintainer vs external workflow |
 
-Cursor rules under [`.cursor/rules/`](.cursor/rules/) reinforce these constraints in-session.
+Cursor rules under [`.cursor/rules/`](.cursor/rules/) are **soft in-context guardrails**
+(not a lock). Keep them short; if agents drift, tighten the rule with a one-line example —
+full policy stays in `doc/AI_POLICY.md` / `doc/AI_NATIVE_FORKING.md`. Humans remain accountable.
 
 ## Hard constraints
 
@@ -27,7 +30,7 @@ Cursor rules under [`.cursor/rules/`](.cursor/rules/) reinforce these constraint
   (height-locked pre-signed txs + heir backup), **not** Script CSV on MWEB outputs.
 - Three stores never merge: transparent UTXOs | MWEB coins | recovery package backup.
   Never fold HogAddr into the transparent UTXO index.
-- Stay a thin, mergeable fork of upstream where practical.
+- Stay a thin, mergeable fork of upstream where practical (alias over rewrite; borrow golden/reference tests).
 - Liana Connect / SaaS and renaming `liana*` crates are out of scope for v1.
 
 ## Current work focus

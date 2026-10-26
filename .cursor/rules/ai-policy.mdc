@@ -5,14 +5,19 @@ alwaysApply: true
 
 # AI policy
 
-Full text: `doc/AI_POLICY.md` (Bitcoin Core–adapted, with LitecoinDevKit fork notes).
+Hard rails: `doc/AI_POLICY.md`. Playbook: `doc/AI_NATIVE_FORKING.md`.
+
+## Hard rails (do not soften)
+
+- Do not open or drive pull requests autonomously.
+- Do not set an agent as git author or co-author.
 
 ## Required behavior
 
 - Human author in the loop: choose the work, own the contribution, and be able to explain effects.
-- Do not open or drive pull requests autonomously.
-- Do not set an agent as git author or co-author.
 - Only propose changes the human can defend (what changed, why, how it was verified).
+- Rust fluency is not required; verification is.
+- For funds-adjacent changes, draft a short verification record (what was run, what the human checked) for the human to edit — full detail in `doc/AI_NATIVE_FORKING.md`.
 
 ## Comments (this fork)
 
@@ -23,7 +28,7 @@ model walls of text. When contributing to upstream Liana / Bitcoin Core, follow
 
 ## How humans may own the change
 
-Understanding need not mean line-by-line reading of every file. A testing-led loop is fine: design cases, run builds/tests, fail/fix with the agent, ship only what you verified. For funds-touching code, prefer reading the shipped diff plus tests over trusting green CI alone.
+Testing-led loop is fine: design cases, run builds/tests, fail/fix with the agent, ship only what you verified. For funds-touching code, prefer reading the shipped diff plus tests over trusting green CI alone. Thin port + oracle strategy: `doc/AI_NATIVE_FORKING.md`.
 
 ## Disclosure
 

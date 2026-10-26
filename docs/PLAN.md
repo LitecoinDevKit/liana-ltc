@@ -117,6 +117,9 @@ flowchart TB
 
 ### Phase 1 — Litecoin transparent port
 
+Keep the port **thin** (aliasing over rewrite); verify with builds/tests — see
+[`doc/AI_NATIVE_FORKING.md`](../doc/AI_NATIVE_FORKING.md).
+
 - [ ] Alias / swap chain types (`bitcoin` → `litecoin` / rust-litecoin) across daemon + GUI
 - [ ] Networks, address formats (`ltc1…`), fee defaults, dust
 - [ ] Backends: Electrum-LTC and/or `litecoind` RPC (prefer Electrum-first for light clients)
@@ -130,6 +133,9 @@ flowchart TB
 - [ ] Document regtest / testnet recipes
 
 ### Phase 3 — Wire LDK MWEB (spend/sync, no recovery yet)
+
+Lean on LDK; verify hard paths with library / golden / reference vectors where possible
+(oracle ≠ embedding `mwebd`).
 
 - [ ] Pin blessed LDK ladder from [`bdk` ADOPTION.md](https://github.com/LitecoinDevKit/bdk/blob/litecoin/docs/ADOPTION.md)
 - [ ] Parallel MWEB coin DB + LIP-0006 sync
@@ -176,6 +182,7 @@ introduce LDK primarily for MWEB in Phase 3, unless transparent port economics f
 ## References
 
 - Onboarding: [`ONBOARDING.md`](ONBOARDING.md)
+- AI-native forking: [`doc/AI_NATIVE_FORKING.md`](../doc/AI_NATIVE_FORKING.md)
 - Upstream: [wizardsardine/liana](https://github.com/wizardsardine/liana)
 - LDK: [LitecoinDevKit/bdk](https://github.com/LitecoinDevKit/bdk) (esp. `ADOPTION.md`, `MWEB_ARCHITECTURE.md`)
 - Fork hygiene: [`UPSTREAM.md`](../UPSTREAM.md)

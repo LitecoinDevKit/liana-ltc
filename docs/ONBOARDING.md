@@ -11,9 +11,10 @@ this page is for people (including AI-assisted contributors).
 2. [`docs/PLAN.md`](PLAN.md) — goals, phases, transparent vs MWEB
 3. [`UPSTREAM.md`](../UPSTREAM.md) — remotes, fork SHA, merge rule
 4. [`doc/AI_POLICY.md`](../doc/AI_POLICY.md) — required if you use LLMs
-5. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — commits, MSRV, maintainer vs external workflow
-6. [`doc/USAGE.md`](../doc/USAGE.md) / [`doc/RECOVER.md`](../doc/RECOVER.md) / [`doc/API.md`](../doc/API.md) — how Liana works as a product
-7. [`UI_GUIDELINES.md`](../UI_GUIDELINES.md) — only if you touch Iced UI
+5. [`doc/AI_NATIVE_FORKING.md`](../doc/AI_NATIVE_FORKING.md) — AI-native port playbook (thin ports, oracles)
+6. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — commits, MSRV, maintainer vs external workflow
+7. [`doc/USAGE.md`](../doc/USAGE.md) / [`doc/RECOVER.md`](../doc/RECOVER.md) / [`doc/API.md`](../doc/API.md) — how Liana works as a product
+8. [`UI_GUIDELINES.md`](../UI_GUIDELINES.md) — only if you touch Iced UI
 
 ## Branches (this fork)
 
@@ -62,8 +63,10 @@ Spend time on these before Phase 1 work — an LLM cannot substitute for this:
 
 ## Using AI here
 
-AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md):
+AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md) and the playbook
+[`doc/AI_NATIVE_FORKING.md`](../doc/AI_NATIVE_FORKING.md):
 
+- **Rust fluency is not required.** You must direct, verify, and explain the change.
 - You must be able to explain what changed, why, and how you verified it
 - **AI-drafted comments/PR text are OK on this fork** if you edit or approve before posting
   (keep them clear and succinct — no unreviewed paste dumps)
@@ -71,6 +74,14 @@ AI tools are welcome under [`doc/AI_POLICY.md`](../doc/AI_POLICY.md):
 - Cursor rules under [`.cursor/rules/`](../.cursor/rules/) reinforce this in-session
 
 **Testing-led ownership is okay.** You do not have to deep-read the whole codebase before shipping. A solid loop is: you choose the work and success criteria → agent drafts code and optional short comment/PR text → you verify with builds/tests (and skim the shipped diff for funds-touching code) → you review/edit anything posted to GitHub → you can defend the change if asked.
+
+**Thin port + external oracle:** prefer aliasing/type swaps over rewrites; verify hard
+semantics with golden tests or reference suites (as with LitecoinDevKit/bdk + mwebd/golden
+vectors). Using those tests as oracles ≠ embedding `mwebd` in the app.
+
+**Funds-adjacent verification is mandatory and specific:** for keys, balances, networks, or
+signing, record the command(s) run, expected outcome, and which oracle you consulted
+(commit/PR note). Hard rails stay fixed: no autonomous PRs; no agent as git author/co-author.
 
 Upstream Liana / Bitcoin Core may still expect fully human-written comments — follow *their*
 rules when contributing there.
@@ -95,6 +106,6 @@ You can, without relying on a model:
 1. Draw transparent vs MWEB recovery enforcement
 2. Point to where descriptors and recovery txs live
 3. State the current phase and a sensible next change (on `litecoin` once Phase 1 starts)
-4. Restate the AI policy in your own words
+4. Restate the AI policy / AI-native forking idea in your own words (human verifies; thin port + oracle)
 
 Then contribute under [`CONTRIBUTING.md`](../CONTRIBUTING.md).

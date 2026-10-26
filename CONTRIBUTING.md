@@ -7,8 +7,8 @@ Note that the development of Bitcoin software requires a high level of rigor, so
 time (and backs and forths) to polish a contribution before it's ready for merge.
 
 If you use AI tools while contributing, read and follow the
-[AI policy](doc/AI_POLICY.md). Contributors are responsible for understanding and
-explaining their own work in their own words.
+[AI policy](doc/AI_POLICY.md) and the [AI-native forking playbook](doc/AI_NATIVE_FORKING.md).
+Contributors are responsible for verifying and explaining their own work.
 
 New to this fork? See [docs/ONBOARDING.md](docs/ONBOARDING.md) for a short getting-started
 checklist (roadmap context, build, domain background, AI workflow).
@@ -32,8 +32,9 @@ during Phase 0 scaffold). Prefer commit messages that explain *why*.
 large or touches funds/descriptor/spend paths; or you want a durable review artifact.
 
 **Still required either way:** hygienic commits, rustfmt, tests for new features, and the
-[AI policy](doc/AI_POLICY.md) (human-reviewed AI drafts for comments/PRs OK on this fork;
-no autonomous agent-driven PRs). Mistakes happen — own them and fix them.
+[AI policy](doc/AI_POLICY.md) / [AI-native forking](doc/AI_NATIVE_FORKING.md)
+(human-reviewed AI drafts OK; thin ports + external oracles; no autonomous agent-driven PRs).
+Mistakes happen — own them and fix them.
 
 
 ## Communication
